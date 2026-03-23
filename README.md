@@ -69,12 +69,12 @@ python3 -m pytest tests/ -v
 
 ```
 tests/test_calculator.py::test_add PASSED
-tests/test_calculator.py::test_subtract PASSED
+tests/test_calculator.py::test_subtract FAILED
 tests/test_calculator.py::test_multiply PASSED
 tests/test_calculator.py::test_divide PASSED
 tests/test_calculator.py::test_divide_by_zero PASSED
 tests/test_calculator.py::test_percentage PASSED
-tests/test_string_utils.py::test_reverse_string PASSED
+tests/test_string_utils.py::test_reverse_string FAILED
 tests/test_string_utils.py::test_capitalize_words PASSED
 tests/test_string_utils.py::test_count_vowels FAILED
 tests/test_string_utils.py::test_is_palindrome PASSED
@@ -83,7 +83,7 @@ tests/test_string_utils.py::test_is_palindrome PASSED
 **Tasks:**
 
 - [ ] Run the tests. How many pass? How many fail?
-- [ ] Read the failure message carefully. Which function has a bug?
+- [ ] Read the failure messages carefully. Which functions have bugs?
 
 ---
 
@@ -160,23 +160,47 @@ git push origin main
 - [ ] Click the **Actions** tab.
 - [ ] Watch the workflow run. Does it pass or fail?
 
-You should see the pipeline **fail** — because the bug in `string_utils.py` causes `test_count_vowels` to fail. This is CI doing its job: catching bugs automatically!
+You should see the pipeline **fail** — because there are three bugs: `count_vowels` and `reverse_string` in `string_utils.py`, and `subtract` in `calculator.py`. This is CI doing its job: catching bugs automatically!
 
 ---
 
 ## Step 6 — Fix the Bug and See the Pipeline Go Green
 
-Time to fix the bug!
+Time to fix the bugs! There are three to find:
 
-1. Open `app/string_utils.py`.
-2. Find the `count_vowels` function.
-3. Look at the vowel list — what is missing?
-4. Fix the bug.
+### Bug 1 — `count_vowels` in `app/string_utils.py`
+
+1. Find the `count_vowels` function.
+2. Look at the vowel list — what is missing?
 
 <details>
 <summary>💡 Hint (click to reveal)</summary>
 
 The vowel string `"aeio"` is missing `"u"`. It should be `"aeiou"`.
+
+</details>
+
+### Bug 2 — `reverse_string` in `app/string_utils.py`
+
+1. Find the `reverse_string` function.
+2. Look at the slice notation — is it actually reversing the string?
+
+<details>
+<summary>💡 Hint (click to reveal)</summary>
+
+The slice `s[::1]` just returns the string as-is. It should be `s[::-1]` (note the negative step) to reverse it.
+
+</details>
+
+### Bug 3 — `subtract` in `app/calculator.py`
+
+1. Find the `subtract` function.
+2. Look at the operator — is it subtracting?
+
+<details>
+<summary>💡 Hint (click to reveal)</summary>
+
+The function uses `+` instead of `-`. It should be `return a - b`.
 
 </details>
 
@@ -189,14 +213,14 @@ python3 -m pytest tests/ -v
 6. Commit and push the fix:
 
 ```bash
-git add app/string_utils.py
-git commit -m "Fix count_vowels: include all vowels"
+git add app/string_utils.py app/calculator.py
+git commit -m "Fix bugs in subtract, reverse_string, and count_vowels"
 git push origin main
 ```
 
 **Tasks:**
 
-- [ ] Fix the bug in `count_vowels`.
+- [ ] Fix the bugs in `count_vowels`, `reverse_string`, and `subtract`.
 - [ ] Verify all 10 tests pass locally.
 - [ ] Push the fix and watch the Actions tab go green!
 
