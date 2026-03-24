@@ -17,6 +17,9 @@ def divide(a, b):
         raise ValueError("Cannot divide by zero")
     return a / b
 
+def modulo(a, b):
+    return a % b
+
 
 def percentage(part, whole):
     """Return what percentage 'part' is of 'whole'."""
