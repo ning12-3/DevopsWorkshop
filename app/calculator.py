@@ -9,6 +9,8 @@ def subtract(a, b):
 def multiply(a, b):
     return a * b
 
+def power(base, exp):
+    return base ** exp
 
 def divide(a, b):
     if b == 0:
